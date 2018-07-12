@@ -150,6 +150,24 @@
     </div>
 </div>
 
+<div id="countyGuide">
+    <img class="county" id="Addison" src="Addison.png">
+    <img class="county" id="Bennington" src="Bennington.png">
+    <img class="county" id="Caledonia" src="Caledonia.png">
+    <img class="county" id="Chittenden" src="Chittenden.png">
+    <img class="county" id="Essex" src="Essex.png">
+    <img class="county" id="Franklin" src="Franklin.png">
+    <img class="county" id="Grand Isle" src="Grand Isle.png">
+    <img class="county" id="Lamoille" src="Lamoille.png">
+    <img class="county" id="Orange" src="Orange.png">
+    <img class="county" id="Orleans" src="Orleans.png">
+    <img class="county" id="Rutland" src="Rutland.png">
+    <img class="county" id="Washington" src="Washington.png">
+    <img class="county" id="Windham" src="Windham.png">
+    <img class="county" id="Windsor" src="Windsor.png">
+
+</div>
+
 <script>
     let randomPointMarker
     var mymap = L.map('mapid', { zoomControl: false }).setView([43.839, -72.625], 8);
@@ -169,7 +187,7 @@
     let vermontBorder = L.geoJSON(border_data);
     vermontBorder.addTo(mymap)
     
-    vermontBorder.setStyle({ color: '#14970b' });
+    vermontBorder.setStyle({ color: '#22e614' });
     
     
     

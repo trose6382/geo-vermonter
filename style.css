@@ -235,3 +235,70 @@ a:active, a:focus, a:visited {
 #start {
     z-index: 1000;
 }
+
+#countyGuide {
+    position: relative;
+}
+
+.county {
+    position: absolute;
+    top: 50px;
+    width: 100px;
+    background: none;
+}
+
+    
+#Addison:hover {
+    display: none;
+}
+
+#Bennington:hover {
+
+}
+
+#Caledonia {
+
+}
+
+#Chittenden {
+
+}
+
+#Essex {
+
+}
+
+#Franklin {
+
+}
+
+#Grand Isle {
+
+}
+
+#Lamoille {
+
+}
+
+#Orange {
+
+}
+
+#Orleans {
+
+}
+
+#Rutland {
+
+}
+
+#Washington {
+
+}
+
+#Windham {
+
+}
+
+#Windsor:hover {
+}
