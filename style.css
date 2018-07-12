@@ -122,10 +122,12 @@
 
 }
 
+
 #panButtons ul {
     list-style: none;
     padding: 0;
 }
+
 
 #panButtons ul li {
     position: absolute;
@@ -214,7 +216,8 @@
 }
 
 #panButtons ul li a:hover {
-    opacity: 1.0;
+    color: red;
+
 } 
 
 a:active, a:focus, a:visited {
