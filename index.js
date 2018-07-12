@@ -2,6 +2,8 @@ var fs = require('fs');
 var http = require('http');
 var mime = require('mime-types');
 
+
+
 var port = process.env.PORT || 5000;
 http.createServer(function (request, response) {
   let contentType = 'text/plain';
@@ -39,3 +41,5 @@ http.createServer(function (request, response) {
 }).listen(port);
 
 console.log("Listening on port " + port);
+
+

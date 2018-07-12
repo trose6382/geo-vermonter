@@ -10,20 +10,49 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row;
+    margin-bottom: 10px;
 }
 
 #mapid {
     height: 635px;
-    width: 800px;
+    width: 100%;
+    position: relative;
 }
 
+
+
 #nav-column {
-    height: 600px;
+    height: 580px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     margin-right: 50px;
     margin-left: 20px;
+    z-index: 1000;
+    position: absolute;
+}
+
+#button-column {
+    z-index: 1000;
+    padding: 30px;
+
+}
+
+#start {
+    margin: 10px;
+    width: 200px;
+}
+
+#guess {
+    margin: 10px;
+    width: 200px;
+
+}
+
+#quit {
+    margin: 10px;
+    width: 200px;
+
 }
 
 #panButtons {
@@ -41,6 +70,8 @@
     color: #5f7fe9;
     background-color: #b9c6ef;
     opacity: 0.5;
+    z-index: 1000;
+
 }
 
 #panButtons ul {
@@ -115,8 +146,8 @@
 #panButtons ul li:nth-child(5) {
     height: 75px;
     width: 75px;
-    top: 55px;
-    left: 55px;
+    top: 53px;
+    left: 51px;
     display: flex;
     justify-content: center;
     align-content: stretch;
@@ -148,4 +179,8 @@ a:active, a:focus, a:visited {
     justify-content: center;
     align-content: stretch;
     flex-direction: row;
+}
+
+#start {
+    z-index: 1000;
 }

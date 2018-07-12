@@ -68,28 +68,50 @@
         <div id="score">Score</div>
     </div>
 
-    <div class="row">
+
+
+    <div id="mapid">
         <div id="nav-column" class="col-sm-2">
-                <nav id="panButtons">
-                        <ul>
-                            <li id='navUp'><a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a></li>
-                            <li id='navRight'><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                            <li id='navLeft'><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                            <li id='navDown'><a href="#"><span class="glyphicon glyphicon-chevron-down"></span></a></li>
-                            <li id='navHome'><a href="#"><span class="glyphicon glyphicon-map-marker"></span></a></li>
-                        </ul>
-                
-                    </nav>
+            <nav id="panButtons">
+                <ul>
+                    <li id='navUp'>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </li>
+                    <li id='navRight'>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </li>
+                    <li id='navLeft'>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                    </li>
+                    <li id='navDown'>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                    </li>
+                    <li id='navHome'>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
         </div>
-        <div class="col-sm-8" id="mapid"></div>
-        <div class="col-sm-2">
+        <div class="col-sm-9"></div>
+        <div id="button-column" class="col-sm-1">
             <button id="start" type="button" class="btn btn-success">Start a Game</button>
             <button id="guess" disabled=true type="button" class="btn btn-primary">Guess the Spot</button>
             <button id="quit" disabled=true type="button" class="btn btn-info">Give Up!</button>
         </div>
     </div>
     <script>
-        var mymap = L.map('mapid', {zoomControl:false}).setView([43.839, -72.625], 8);
+        var mymap = L.map('mapid', { zoomControl: false }).setView([43.839, -72.625], 8);
 
         mymap.dragging.disable();
         mymap.touchZoom.disable();
@@ -106,17 +128,21 @@
         let vermontBorder = L.geoJSON(border_data);
         vermontBorder.addTo(mymap)
 
+        vermontBorder.setStyle({ color: '#14970b' });
+
+
+
         function selectRandomPoint() {
             let boundingBox = {
                 maxLon: -73.3654, minLon: -71.5489, maxLat: 45.0065, minLat: 42.7395
             };
-            let latMultiplier = boundingBox.maxLat-boundingBox.minLat;
+            let latMultiplier = boundingBox.maxLat - boundingBox.minLat;
             console.log(latMultiplier)
             let lonMultiplier = boundingBox.maxLon - boundingBox.minLon;
             console.log(lonMultiplier)
-            let randomLat = Math.random()*latMultiplier + boundingBox.minLat;
+            let randomLat = Math.random() * latMultiplier + boundingBox.minLat;
             console.log(randomLat)
-            let randomLon = Math.random()*lonMultiplier + boundingBox.minLon;
+            let randomLon = Math.random() * lonMultiplier + boundingBox.minLon;
             console.log(randomLon)
 
             let layer = L.geoJson(border_data);
@@ -153,7 +179,7 @@
             hideLatLon();
             resetScore();
             selectRandomPoint();
-}
+        }
 
         function playing() {
             calculateScore();
@@ -254,11 +280,11 @@
         }
         function resetScore() {
             score = 100
-            $('#score').text('Score: '+ score+'')
+            $('#score').text('Score: ' + score + '')
         }
         function scoreDown() {
-            score --
-            $('#score').text('Score: '+ score+'')
+            score--
+            $('#score').text('Score: ' + score + '')
         }
 
 

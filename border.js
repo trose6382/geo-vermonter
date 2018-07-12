@@ -7,6 +7,7 @@ let border_data = {
     "latitude": 44.0886,
     "longitude": -72.7317
   },
+  
   "geometry": {
     "type": "Polygon",
     "coordinates": [
@@ -94,3 +95,5 @@ let border_data = {
     ]
   }
 }
+
+
