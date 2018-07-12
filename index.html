@@ -70,7 +70,7 @@
 
 <div id='endBanner'>
     <h2>
-        Lorem Ipsum
+        How well do you know Vermont? See if you can guess which county you land in!
     </h2>
 
 </div>
@@ -380,13 +380,13 @@
         }
         function processCorrect() {
             $('#guessModal').modal('hide')
-            $('#endBanner').css('display', 'flex').css('background-color', 'green')
+            $('#endBanner').css('display', 'flex').css('background', 'green')
             $('#endBanner > h2').text('You Win! Try again?')
             enterEndScreen()
         }
         function processIncorrect() {
             $('#guessModal').modal('hide')
-            $('#endBanner').css('display', 'flex').css('background-color', 'red')
+            $('#endBanner').css('display', 'flex').css('background', 'red')
             $('#endBanner > h2').text('You Lose. Try again?')
             $('#score').text('Score: 0')
             enterEndScreen()

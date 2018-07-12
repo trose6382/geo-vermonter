@@ -240,8 +240,12 @@ a:active, a:focus, a:visited {
 }
 
 #endBanner {
+    font-family: 'Didact Gothic', sans-serif;
     background-color: green;
+    border-bottom: 1px double black;
+    border-bottom: 1px double black;
     color: white;
-    display: none;
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
