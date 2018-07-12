@@ -263,6 +263,7 @@
         }
         
         $('#start').click(enterPlaying);
+        $('#confirmGuess').click(processUserGuess)
         // $('#guess').click(enterGuessInput);
         $('#quit').click(enterEndScreen);
         $('#navUp').click(panUp)
@@ -309,7 +310,7 @@
         function displayLatLon() {
             $('#lat').text('Latitude: ' + startingLat.toPrecision(6).toString())
             $('#long').text('Longitude: ' + startingLon.toPrecision(6).toString())
-            $('#county').text('County: ' + county.toString())
+            $('#county').text('County: ' + county.split(' ')[0].toString())
         }
         function hideLatLon() {
             $('#lat').text('Latitude: ???')
@@ -319,10 +320,6 @@
         function resetMap() {
             mymap.setView([43.839, -72.625], 8)
         }
-        function processUserGuess() {
-            
-        }
-        
         function panUp() {
             currentLat = currentLat + 0.0015;
             mymap.setView([currentLat, currentLon], 18);
@@ -357,7 +354,21 @@
             score--
             $('#score').text('Score: ' + score + '')
         }
-        
+        function processUserGuess() {
+            if ($('#countySelector').val() == county){
+                console.log('win')
+            } else if ($('#countySelector').val() === "Choose a County") {
+                console.log('no county selected')
+            } else {
+                console.log('lose')
+            }
+        }
+        function processCorrect() {
+
+        }
+        function processIncorrect() {
+
+        }
         enterHomeScreen()
     </script>
     
