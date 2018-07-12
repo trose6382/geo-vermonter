@@ -231,7 +231,17 @@ a:active, a:focus, a:visited {
     align-content: stretch;
     flex-direction: row;
 }
-
+.hiddenError{
+    display: none;
+    color: red;
+}
 #start {
     z-index: 1000;
+}
+
+#endBanner {
+    background-color: green;
+    color: white;
+    display: none;
+    justify-content: center;
 }

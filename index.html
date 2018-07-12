@@ -68,7 +68,12 @@
     <div id="score">Score</div>
 </div>
 
+<div id='endBanner'>
+    <h2>
+        Lorem Ipsum
+    </h2>
 
+</div>
 
 <div id="mapid">
     <div id="nav-column" class="col-sm-2">
@@ -114,13 +119,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class='row'>
-                        <h5 class="modal-title col-sm-11" id="guessModalLabel">Guess a County</h5>
+                        <h2 class="modal-title col-sm-11" id="guessModalLabel">Guess a County</h2>
                         <button type="button" class="close col-sm-1" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 </div>
                 <div class="modal-body">
+                    <h5>
+                        Guess carefully! You will lose if you guess wrong!
+                    </h5>
                     <form>
                             <select id='countySelector' class='form-control'>
                                 <option selected>Choose a County</option>
@@ -140,6 +148,9 @@
                                 <option value='Windsor County'>Windsor County</option>
                             </select>
                     </form>
+                    <h5 class='hiddenError'>
+                            Please guess a county.
+                    </h5>
                 </div>
                 <div class="modal-footer">
                     <button id='cancelGuess' type="button" class="btn btn-secondary" data-dismiss="modal">Cancel Guess</button>
@@ -233,6 +244,7 @@
         hideLatLon();
         resetScore();
         selectRandomPoint();
+        hideBanner();
     }
     
     function resumePlaying() {
@@ -265,7 +277,7 @@
         $('#start').click(enterPlaying);
         $('#confirmGuess').click(processUserGuess)
         // $('#guess').click(enterGuessInput);
-        $('#quit').click(enterEndScreen);
+        $('#quit').click(giveUp);
         $('#navUp').click(panUp)
         $('#navLeft').click(panLeft)
         $('#navRight').click(panRight)
@@ -356,19 +368,34 @@
         }
         function processUserGuess() {
             if ($('#countySelector').val() == county){
-                console.log('win')
+                processCorrect()
             } else if ($('#countySelector').val() === "Choose a County") {
-                console.log('no county selected')
+                $('.hiddenError').show()
             } else {
-                console.log('lose')
+                processIncorrect()
             }
         }
+        function giveUp() {
+            processIncorrect()
+        }
         function processCorrect() {
-
+            $('#guessModal').modal('hide')
+            $('#endBanner').css('display', 'flex').css('background-color', 'green')
+            $('#endBanner > h2').text('You Win! Try again?')
+            enterEndScreen()
         }
         function processIncorrect() {
-
+            $('#guessModal').modal('hide')
+            $('#endBanner').css('display', 'flex').css('background-color', 'red')
+            $('#endBanner > h2').text('You Lose. Try again?')
+            $('#score').text('Score: 0')
+            enterEndScreen()
         }
+
+        function hideBanner() {
+            $('#endBanner').css('display', 'none')
+        }
+
         enterHomeScreen()
     </script>
     
