@@ -1,9 +1,18 @@
 #logo {
     height: 45px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.navbar-default {
+    font-family: 'Didact Gothic', sans-serif;
+
 }
 
 .navbar-brand {
     padding: 2px 5px;
+    font-family: 'Didact Gothic', sans-serif;
+
 }
 
 .info {
@@ -11,6 +20,45 @@
     justify-content: space-around;
     flex-direction: row;
     margin-bottom: 10px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+#county {
+    border-top: 2px solid #14970b;
+    border-bottom: 2px solid #14970b;
+    padding: 10px;
+    width: 15%;
+    text-align: center;
+    background: rgba(20, 151, 11, 0.5);
+}
+
+#lat {
+    border-top: 2px solid #14970b;
+    border-bottom: 2px solid #14970b;
+    padding: 10px;
+    width: 15%;
+    text-align: center;
+    background: rgba(20, 151, 11, 0.5);
+}
+
+#long {
+    border-top: 2px solid #14970b;
+    border-bottom: 2px solid #14970b;
+    padding: 10px;
+    width: 15%;
+    text-align: center;
+    background: rgba(20, 151, 11, 0.5);
+}
+
+#score {
+    border-top: 2px solid #14970b;
+    border-bottom: 2px solid #14970b;
+    padding: 10px;
+    width: 15%;
+    text-align: center;
+    background: rgba(20, 151, 11, 0.5);
 }
 
 #mapid {
@@ -146,8 +194,8 @@
 #panButtons ul li:nth-child(5) {
     height: 75px;
     width: 75px;
-    top: 53px;
-    left: 51px;
+    top: 57px;
+    left: 55px;
     display: flex;
     justify-content: center;
     align-content: stretch;
