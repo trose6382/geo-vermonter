@@ -154,19 +154,28 @@
                 currentLon = randomLon;
                 startingLat = randomLat;
                 startingLon = randomLon;
+                getCountyData(randomLat, randomLon)
             }
             else {
                 selectRandomPoint();
             }
             console.log(results)
         }
-
+        function getCountyData(randomLat, randomLon) {
+            fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + randomLat + '&lon=' + randomLon)
+            .then(function (result) {
+                return result.json()
+            })
+            .then(function(randomJson) {   
+                county = randomJson.address.county
+            })
+        }
 
         function enterHomeScreen() {
             enableStartButton();
             disableGuessButton();
             disableQuitButton();
-            // disableNavigation();
+            disableNavigation();
             hideLatLon();
             resetScore();
         }
@@ -175,15 +184,15 @@
             disableStartButton();
             enableGuessButton();
             enableQuitButton();
-            // enableNavigation();
+            enableNavigation();
             hideLatLon();
             resetScore();
             selectRandomPoint();
         }
 
-        function playing() {
-            calculateScore();
-        }
+        // function playing() {
+        //     calculateScore();
+        // }
 
         function enterGuessInput() {
             disableStartButton();
@@ -192,7 +201,7 @@
             disableNavigation();
             processUserGuess();
             hideLatLon();
-            calculateScore();
+            // calculateScore();
         }
 
         function enterEndScreen() {
@@ -201,7 +210,8 @@
             disableQuitButton();
             disableNavigation();
             displayLatLon();
-            calculateScore();
+            // calculateScore();
+            resetMap();
             //store high score function here
         }
 
@@ -234,22 +244,36 @@
             document.getElementById('quit').disabled = false
         }
         function disableNavigation() {
-            document.getElementById('navigation').disabled = true
+            $('#navUp').off('click').css('background-color', 'grey')
+            $('#navLeft').off('click').css('background-color', 'grey')
+            $('#navRight').off('click').css('background-color', 'grey')
+            $('#navDown').off('click').css('background-color', 'grey')
+            $('#navHome').off('click').css('background-color', 'grey')
+            $('#panButtons').css('background-color', 'grey')
         }
         function enableNavigation() {
-            document.getElementById('navigation').disabled = false
+            $('#navUp').click(panUp).css('background-color', '#b9c6ef')
+            $('#navLeft').click(panLeft).css('background-color', '#b9c6ef')
+            $('#navRight').click(panRight).css('background-color', '#b9c6ef')
+            $('#navDown').click(panDown).css('background-color', '#b9c6ef')
+            $('#navHome').click(navHome).css('background-color', '#b9c6ef')
+            $('#panButtons').css('background-color', '#b9c6ef')
         }
         function displayLatLon() {
-
+            $('#lat').text('Latitude: ' + startingLat.toPrecision(6).toString())
+            $('#long').text('Longitude: ' + startingLon.toPrecision(6).toString())
+            $('#county').text('County: ' + county.toString())
         }
         function hideLatLon() {
-
+            $('#lat').text('Latitude: ???')
+            $('#long').text('Longitude: ???')
+            $('#county').text('County: ???')
         }
-        function calculateScore() {
-
+        function resetMap() {
+            mymap.setView([43.839, -72.625], 8)
         }
         function processUserGuess() {
-
+            
         }
 
         function panUp() {
@@ -287,7 +311,7 @@
             $('#score').text('Score: ' + score + '')
         }
 
-
+        enterHomeScreen()
     </script>
 
 
