@@ -1,0 +1,151 @@
+#logo {
+    height: 45px;
+}
+
+.navbar-brand {
+    padding: 2px 5px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+#mapid {
+    height: 635px;
+    width: 800px;
+}
+
+#nav-column {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-right: 50px;
+    margin-left: 20px;
+}
+
+#panButtons {
+    width: 200px;
+    height: 200px;
+    border: solid;
+    left: 25px;
+    position: relative;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    overflow: hidden;
+    border-radius: 20%;
+    color: #5f7fe9;
+    background-color: #b9c6ef;
+    opacity: 0.5;
+}
+
+#panButtons ul {
+    list-style: none;
+    padding: 0;
+}
+
+#panButtons ul li {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    opacity: 1.0;
+}
+
+#panButtons ul li:nth-child(1) {
+    left: 0px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    z-index:1;
+}
+
+#panButtons ul li:nth-child(2) {
+    right: 0px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+    z-index:1;
+}
+
+#panButtons ul li:nth-child(3) {
+    left: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    z-index:1;
+}
+
+#panButtons ul li:nth-child(4) {
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    flex-direction: row;
+    align-items: center;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    z-index:1;
+}
+
+#panButtons ul li:nth-child(5) {
+    height: 75px;
+    width: 75px;
+    top: 55px;
+    left: 55px;
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
+    flex-direction: row;
+    z-index: 2;
+}
+
+#panButtons ul li a {
+    display: block;
+    color: #000;
+    text-align: center;
+    font-size: 30px;
+    /* line-height: 2.65; */
+    text-decoration: none;
+}
+
+#panButtons ul li a:hover {
+    opacity: 1.0;
+} 
+
+a:active, a:focus, a:visited {
+    outline: 0;
+}
+
+.glyphicon-map-marker {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    flex-direction: row;
+}

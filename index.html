@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="border.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+        crossorigin=""></script>
+    <script src="https://unpkg.com/@mapbox/leaflet-pip@latest/leaflet-pip.js"></script>
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#">
+                    <img id="logo" src="geovermonterLogo.png">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#">About
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">High Score</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="info">
+        <div id="county">County</div>
+        <div id="lat">Latitude</div>
+        <div id="long">Longitude</div>
+        <div id="score">Score</div>
+    </div>
+
+    <div class="row">
+        <div id="nav-column" class="col-sm-2">
+                <nav id="panButtons">
+                        <ul>
+                            <li id='navUp'><a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a></li>
+                            <li id='navRight'><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                            <li id='navLeft'><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                            <li id='navDown'><a href="#"><span class="glyphicon glyphicon-chevron-down"></span></a></li>
+                            <li id='navHome'><a href="#"><span class="glyphicon glyphicon-map-marker"></span></a></li>
+                        </ul>
+                
+                    </nav>
+        </div>
+        <div class="col-sm-8" id="mapid"></div>
+        <div class="col-sm-2">
+            <button id="start" type="button" class="btn btn-success">Start a Game</button>
+            <button id="guess" disabled=true type="button" class="btn btn-primary">Guess the Spot</button>
+            <button id="quit" disabled=true type="button" class="btn btn-info">Give Up!</button>
+        </div>
+    </div>
+    <script>
+        var mymap = L.map('mapid', {zoomControl:false}).setView([43.839, -72.625], 8);
+
+        mymap.dragging.disable();
+        mymap.touchZoom.disable();
+        mymap.doubleClickZoom.disable();
+        mymap.scrollWheelZoom.disable();
+        mymap.boxZoom.disable();
+        mymap.keyboard.disable();
+
+        var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+        Esri_WorldImagery.addTo(mymap)
+
+        let vermontBorder = L.geoJSON(border_data);
+        vermontBorder.addTo(mymap)
+
+        function selectRandomPoint() {
+            let boundingBox = {
+                maxLon: -73.3654, minLon: -71.5489, maxLat: 45.0065, minLat: 42.7395
+            };
+            let latMultiplier = boundingBox.maxLat-boundingBox.minLat;
+            console.log(latMultiplier)
+            let lonMultiplier = boundingBox.maxLon - boundingBox.minLon;
+            console.log(lonMultiplier)
+            let randomLat = Math.random()*latMultiplier + boundingBox.minLat;
+            console.log(randomLat)
+            let randomLon = Math.random()*lonMultiplier + boundingBox.minLon;
+            console.log(randomLon)
+
+            let layer = L.geoJson(border_data);
+            let results = leafletPip.pointInLayer([randomLon, randomLat], layer);
+            if (results.length > 0) {
+                L.marker([randomLat, randomLon]).addTo(mymap);
+                mymap.setView([randomLat, randomLon], 18);
+                currentLat = randomLat;
+                currentLon = randomLon;
+                startingLat = randomLat;
+                startingLon = randomLon;
+            }
+            else {
+                selectRandomPoint();
+            }
+            console.log(results)
+        }
+
+
+        function enterHomeScreen() {
+            enableStartButton();
+            disableGuessButton();
+            disableQuitButton();
+            // disableNavigation();
+            hideLatLon();
+            resetScore();
+        }
+
+        function enterPlaying() {
+            disableStartButton();
+            enableGuessButton();
+            enableQuitButton();
+            // enableNavigation();
+            hideLatLon();
+            resetScore();
+            selectRandomPoint();
+}
+
+        function playing() {
+            calculateScore();
+        }
+
+        function enterGuessInput() {
+            disableStartButton();
+            disableGuessButton();
+            disableQuitButton();
+            disableNavigation();
+            processUserGuess();
+            hideLatLon();
+            calculateScore();
+        }
+
+        function enterEndScreen() {
+            enableStartButton();
+            disableGuessButton();
+            disableQuitButton();
+            disableNavigation();
+            displayLatLon();
+            calculateScore();
+            //store high score function here
+        }
+
+
+        $('#start').click(enterPlaying);
+        $('#guess').click(enterGuessInput);
+        $('#quit').click(enterEndScreen);
+        $('#navUp').click(panUp)
+        $('#navLeft').click(panLeft)
+        $('#navRight').click(panRight)
+        $('#navDown').click(panDown)
+        $('#navHome').click(navHome)
+
+        function disableStartButton() {
+            document.getElementById('start').disabled = true
+        }
+        function enableStartButton() {
+            document.getElementById('start').disabled = false
+        }
+        function disableGuessButton() {
+            document.getElementById('guess').disabled = true
+        }
+        function enableGuessButton() {
+            document.getElementById('guess').disabled = false
+        }
+        function disableQuitButton() {
+            document.getElementById('quit').disabled = true
+        }
+        function enableQuitButton() {
+            document.getElementById('quit').disabled = false
+        }
+        function disableNavigation() {
+            document.getElementById('navigation').disabled = true
+        }
+        function enableNavigation() {
+            document.getElementById('navigation').disabled = false
+        }
+        function displayLatLon() {
+
+        }
+        function hideLatLon() {
+
+        }
+        function calculateScore() {
+
+        }
+        function processUserGuess() {
+
+        }
+
+        function panUp() {
+            currentLat = currentLat + 0.0015;
+            mymap.setView([currentLat, currentLon], 18);
+            scoreDown()
+        }
+        function panDown() {
+            currentLat = currentLat - 0.0015;
+            mymap.setView([currentLat, currentLon], 18);
+            scoreDown()
+        }
+        function panLeft() {
+            currentLon = currentLon - 0.0020;
+            mymap.setView([currentLat, currentLon], 18);
+            scoreDown()
+        }
+        function panRight() {
+            currentLon = currentLon + 0.0020;
+            mymap.setView([currentLat, currentLon], 18);
+            scoreDown()
+        }
+        function navHome() {
+            currentLat = startingLat;
+            currentLon = startingLon;
+            mymap.setView([currentLat, currentLon], 18)
+            scoreDown()
+        }
+        function resetScore() {
+            score = 100
+            $('#score').text('Score: '+ score+'')
+        }
+        function scoreDown() {
+            score --
+            $('#score').text('Score: '+ score+'')
+        }
+
+
+    </script>
+
+
+
+
+</body>
+
+
+</html>
