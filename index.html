@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="border.js"></script>
     <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -21,7 +22,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-lg navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -67,6 +68,14 @@
         <div id="long">Longitude</div>
         <div id="score">Score</div>
     </div>
+
+    <div id='endBanner'>
+            <h2>
+                How well do you know Vermont? See if you can guess in which county you land in as few moves as possible.
+            </h2>
+        
+        </div>
+
     <div id="mapid">
         <div id="nav-column" class="col-sm-2">
             <div id="countyGuide">
@@ -120,8 +129,8 @@
         </div>
         <div class="col-sm-9"></div>
         <div id="button-column" class="col-sm-1">
-            <button id="start" type="button" class="btn btn-success">Start a Game</button>
-            <button id="guess" disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#guessModal">Guess the Spot</button>
+            <button id="start" type="button" class="btn btn-success">Start Game</button>
+            <button id="guess" disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#guessModal">Guess Spot</button>
             <button id="quit" disabled type="button" class="btn btn-info">Give Up!</button>
         </div>
         <div class="modal fade" id="guessModal" tabindex="-1" role="dialog" aria-labelledby="guessModalLabel" aria-hidden="true">
@@ -136,6 +145,9 @@
                         </div>
                     </div>
                     <div class="modal-body">
+                            <h5>
+                                Guess carefully! You will lose if you guess wrong!
+                            </h5>
                         <form>
                             <select id='countySelector' class='form-control'>
                                 <option selected>Choose a County</option>
@@ -154,12 +166,14 @@
                                 <option value='Windham County'>Windham County</option>
                                 <option value='Windsor County'>Windsor County</option>
                             </select>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button id='cancelGuess' type="button" class="btn btn-secondary" data-dismiss="modal">Cancel Guess</button>
-                        <button id='confirmGuess' type="button" class="btn btn-primary">Guess!</button>
-                    </div>
+                    </form>
+                    <h5 class='hiddenError'>
+                            Please guess a county.
+                    </h5>
+                </div>
+                <div class="modal-footer">
+                    <button id='cancelGuess' type="button" class="btn btn-secondary" data-dismiss="modal">Cancel Guess</button>
+                    <button id='confirmGuess' type="button" class="btn btn-primary">Guess!</button>
                 </div>
             </div>
         </div>
@@ -220,45 +234,46 @@
                 selectRandomPoint();
             }
             console.log(results)
-        }
-        function getCountyData(randomLat, randomLon) {
-            fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + randomLat + '&lon=' + randomLon)
-                .then(function (result) {
-                    return result.json()
-                })
-                .then(function (randomJson) {
-                    county = randomJson.address.county
-                })
-        }
-
-        function enterHomeScreen() {
-            enableStartButton();
-            disableGuessButton();
-            disableQuitButton();
-            disableNavigation();
-            hideLatLon();
-            resetScore();
-        }
-
-        function enterPlaying() {
-            disableStartButton();
-            enableGuessButton();
-            enableQuitButton();
-            enableNavigation();
-            hideLatLon();
-            resetScore();
-            selectRandomPoint();
-        }
-
-        function resumePlaying() {
-            disableStartButton();
-            enableGuessButton();
-            enableQuitButton();
-            enableNavigation();
-            hideLatLon();
-        }
-
-        // function enterGuessInput() {
+    }
+    function getCountyData(randomLat, randomLon) {
+        fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + randomLat + '&lon=' + randomLon)
+        .then(function (result) {
+            return result.json()
+        })
+        .then(function(randomJson) {   
+            county = randomJson.address.county
+        })
+    }
+    
+    function enterHomeScreen() {
+        enableStartButton();
+        disableGuessButton();
+        disableQuitButton();
+        disableNavigation();
+        hideLatLon();
+        resetScore();
+    }
+    
+    function enterPlaying() {
+        disableStartButton();
+        enableGuessButton();
+        enableQuitButton();
+        enableNavigation();
+        hideLatLon();
+        resetScore();
+        selectRandomPoint();
+        hideBanner();
+    }
+    
+    function resumePlaying() {
+        disableStartButton();
+        enableGuessButton();
+        enableQuitButton();
+        enableNavigation();
+        hideLatLon();
+    }
+    
+    // function enterGuessInput() {
         //     disableStartButton();
         //     disableQuitButton();
         //     disableNavigation();
@@ -278,8 +293,9 @@
         }
 
         $('#start').click(enterPlaying);
+        $('#confirmGuess').click(processUserGuess)
         // $('#guess').click(enterGuessInput);
-        $('#quit').click(enterEndScreen);
+        $('#quit').click(giveUp);
         $('#navUp').click(panUp)
         $('#navLeft').click(panLeft)
         $('#navRight').click(panRight)
@@ -324,7 +340,7 @@
         function displayLatLon() {
             $('#lat').text('Latitude: ' + startingLat.toPrecision(6).toString())
             $('#long').text('Longitude: ' + startingLon.toPrecision(6).toString())
-            $('#county').text('County: ' + county.toString())
+            $('#county').text('County: ' + county.split(' ')[0].toString())
         }
         function hideLatLon() {
             $('#lat').text('Latitude: ???')
@@ -334,10 +350,6 @@
         function resetMap() {
             mymap.setView([43.839, -72.625], 8)
         }
-        function processUserGuess() {
-
-        }
-
         function panUp() {
             currentLat = currentLat + 0.0015;
             mymap.setView([currentLat, currentLon], 18);
@@ -371,6 +383,35 @@
         function scoreDown() {
             score--
             $('#score').text('Score: ' + score + '')
+        }
+        function processUserGuess() {
+            if ($('#countySelector').val() == county){
+                processCorrect()
+            } else if ($('#countySelector').val() === "Choose a County") {
+                $('.hiddenError').show()
+            } else {
+                processIncorrect()
+            }
+        }
+        function giveUp() {
+            processIncorrect()
+        }
+        function processCorrect() {
+            $('#guessModal').modal('hide')
+            $('#endBanner').css('display', 'flex').css('background', 'green')
+            $('#endBanner > h2').text('You Win! Try again?')
+            enterEndScreen()
+        }
+        function processIncorrect() {
+            $('#guessModal').modal('hide')
+            $('#endBanner').css('display', 'flex').css('background', 'red')
+            $('#endBanner > h2').text('You Lose. Try again?')
+            $('#score').text('Score: 0')
+            enterEndScreen()
+        }
+
+        function hideBanner() {
+            $('#endBanner').css('display', 'none')
         }
 
         enterHomeScreen()
