@@ -88,18 +88,18 @@
 
 #start {
     margin: 10px;
-    width: 200px;
+    width: 100px;
 }
 
 #guess {
     margin: 10px;
-    width: 200px;
+    width: 100px;
 
 }
 
 #quit {
     margin: 10px;
-    width: 200px;
+    width: 100px;
 
 }
 
@@ -248,4 +248,27 @@ a:active, a:focus, a:visited {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px
+}
+
+@media (max-width: 450px){
+    #button-column{
+        display:flex;
+        flex-direction:column;
+        opacity: .8;
+        padding: 10px;
+    }
+    #long{
+        padding: 10px 0px;
+    }
+    .info{
+        font-size: 10px;
+    }
+    #nav-column{
+        width: 100%;
+        align-items: center;
+    }
+    #panButtons {
+        margin-left: -90px;
+    }
 }
