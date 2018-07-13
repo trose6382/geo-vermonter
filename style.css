@@ -271,4 +271,8 @@ a:active, a:focus, a:visited {
     #panButtons {
         margin-left: -90px;
     }
+    #endBanner{
+        font-size:20px;
+        text-align: center;
+    }
 }
