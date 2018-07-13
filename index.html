@@ -79,59 +79,61 @@
     <div id="mapid">
         <div id="nav-column" class="col-sm-2">
             <div id="countyGuide">
-                <img class="county" id="Addison" src="Addison.png" onClick="alert('Addison County')">
-                <img class="county" id="Bennington" src="Bennington.png" onClick="alert('Bennington County')">
-                <img class="county" id="Caledonia" src="Caledonia.png" onClick="alert('Caledonia County')">
-                <img class="county" id="Chittenden" src="Chittenden.png" onClick="alert('Chittenden County')">
-                <img class="county" id="Essex" src="Essex.png" onClick="alert('Essex County')">
-                <img class="county" id="Franklin" src="Franklin.png" onClick="alert('Franklin County')">
-                <img class="county" id="Grand-Isle" src="Grand Isle.png" onClick="alert('Grand Isle County')">
-                <img class="county" id="Lamoille" src="Lamoille.png" onClick="alert('Lamoille County')">
-                <img class="county" id="Orange" src="Orange.png" onClick="alert('Orange County')">
-                <img class="county" id="Orleans" src="Orleans.png" onClick="alert('Orleans County')">
-                <img class="county" id="Rutland" src="Rutland.png" onClick="alert('Rutland County')">
-                <img class="county" id="Washington" src="Washington.png" onClick="alert('Washington County')">
-                <img class="county" id="Windham" src="Windham.png" onClick="alert('Windham County')">
-                <img class="county" id="Windsor" src="Windsor.png" onClick="alert('Windsor County')">
-                <img class="county" id="Vermont" src="vermont-county-map.png">
+                <img class="county Addison" src="Addison.png" onClick="alert('Addison County')">
+                <img class="county Bennington" src="Bennington.png" onClick="alert('Bennington County')">
+                <img class="county Caledonia" src="Caledonia.png" onClick="alert('Caledonia County')">
+                <img class="county Chittenden" src="Chittenden.png" onClick="alert('Chittenden County')">
+                <img class="county Essex" src="Essex.png" onClick="alert('Essex County')">
+                <img class="county Franklin" src="Franklin.png" onClick="alert('Franklin County')">
+                <img class="county Grand-Isle" src="Grand Isle.png" onClick="alert('Grand Isle County')">
+                <img class="county Lamoille" src="Lamoille.png" onClick="alert('Lamoille County')">
+                <img class="county Orange" src="Orange.png" onClick="alert('Orange County')">
+                <img class="county Orleans" src="Orleans.png" onClick="alert('Orleans County')">
+                <img class="county Rutland" src="Rutland.png" onClick="alert('Rutland County')">
+                <img class="county Washington" src="Washington.png" onClick="alert('Washington County')">
+                <img class="county Windham" src="Windham.png" onClick="alert('Windham County')">
+                <img class="county Windsor" src="Windsor.png" onClick="alert('Windsor County')">
+                <img class="county Vermont" src="vermont-county-map.png">
 
             </div>
-            <nav id="panButtons">
-                <ul>
-                    <li id='navUp'>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-chevron-up"></span>
-                        </a>
-                    </li>
-                    <li id='navRight'>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
-                    </li>
-                    <li id='navLeft'>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                    </li>
-                    <li id='navDown'>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                    </li>
-                    <li id='navHome'>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-map-marker"></span>
-                        </a>
-                    </li>
-                </ul>
-
-            </nav>
+            
         </div>
         <div class="col-sm-9"></div>
         <div id="button-column" class="col-sm-1">
             <button id="start" type="button" class="btn btn-success">Start Game</button>
             <button id="guess" disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#guessModal">Guess Spot</button>
             <button id="quit" disabled type="button" class="btn btn-info">Give Up!</button>
+
+            <nav id="panButtons">
+                    <ul>
+                        <li id='navUp'>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                            </a>
+                        </li>
+                        <li id='navRight'>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </li>
+                        <li id='navLeft'>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                        </li>
+                        <li id='navDown'>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                        </li>
+                        <li id='navHome'>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-map-marker"></span>
+                            </a>
+                        </li>
+                    </ul>
+    
+                </nav>
         </div>
         <div class="modal fade" id="guessModal" tabindex="-1" role="dialog" aria-labelledby="guessModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -148,6 +150,24 @@
                             <h5>
                                 Guess carefully! You will lose if you guess wrong!
                             </h5>
+                            <div id="countyGuide">
+                                    <img class="county Addison" src="Addison.png" onClick="processUserGuess('Addison County')">
+                                    <img class="county Bennington" src="Bennington.png" onClick="processUserGuess('Bennington County')">
+                                    <img class="county Caledonia" src="Caledonia.png" onClick="processUserGuess('Caledonia County')">
+                                    <img class="county Chittenden" src="Chittenden.png" onClick="processUserGuess('Chittenden County')">
+                                    <img class="county Essex" src="Essex.png" onClick="processUserGuess('Essex County')">
+                                    <img class="county Franklin" src="Franklin.png" onClick="processUserGuess('Franklin County')">
+                                    <img class="county Grand-Isle" src="Grand Isle.png" onClick="processUserGuess('Grand Isle County')">
+                                    <img class="county Lamoille" src="Lamoille.png" onClick="processUserGuess('Lamoille County')">
+                                    <img class="county Orange" src="Orange.png" onClick="processUserGuess('Orange County')">
+                                    <img class="county Orleans" src="Orleans.png" onClick="processUserGuess('Orleans County')">
+                                    <img class="county Rutland" src="Rutland.png" onClick="processUserGuess('Rutland County')">
+                                    <img class="county Washington" src="Washington.png" onClick="processUserGuess('Washington County')">
+                                    <img class="county Windham" src="Windham.png" onClick="processUserGuess('Windham County')">
+                                    <img class="county Windsor" src="Windsor.png" onClick="processUserGuess('Windsor County')">
+                                    <img class="county Vermont" src="vermont-county-map.png">
+                    
+                                </div>
                         <form>
                             <select id='countySelector' class='form-control'>
                                 <option selected>Choose a County</option>
@@ -384,15 +404,16 @@
             score--
             $('#score').text('Score: ' + score + '')
         }
-        function processUserGuess() {
-            if ($('#countySelector').val() == county){
+        function processUserGuess(guessCounty) {
+            console.log(guessCounty)
+            if (guessCounty == county){
                 processCorrect()
-            } else if ($('#countySelector').val() === "Choose a County") {
-                $('.hiddenError').show()
             } else {
                 processIncorrect()
             }
         }
+
+
         function giveUp() {
             processIncorrect()
         }
@@ -413,6 +434,8 @@
         function hideBanner() {
             $('#endBanner').css('display', 'none')
         }
+
+
 
         enterHomeScreen()
     </script>
