@@ -6,16 +6,16 @@
     <script src="border.js"></script>
     <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+    crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
+    crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-        crossorigin="" />
+    crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-        crossorigin=""></script>
+    crossorigin=""></script>
     <script src="https://unpkg.com/@mapbox/leaflet-pip@latest/leaflet-pip.js"></script>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
@@ -27,168 +27,189 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <a class="navbar-brand" href="#">
-                    <img id="logo" src="geovermonterLogo.png">
-                </a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">About
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">High Score</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+                aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="#">
+                <img id="logo" src="geovermonterLogo.png">
+            </a>
         </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <div class="info">
-        <div id="county">County</div>
-        <div id="lat">Latitude</div>
-        <div id="long">Longitude</div>
-        <div id="score">Score</div>
-    </div>
-
-    <div id='endBanner'>
-            <h2>
-                How well do you know Vermont? See if you can guess in which county you land in as few moves as possible.
-            </h2>
         
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#">About
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li>
+                    <button type="button" class="align-baseline" data-toggle="modal" data-target="#highScoresModal">High Scores</button>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">Contact Us</a>
+                </li>
+            </ul>
         </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 
-    <div id="mapid">
-        <div id="nav-column" class="col-sm-2">
-            <div id="countyGuide">
-                <img class="county Addison" src="Addison.png" onClick="alert('Addison County')">
-                <img class="county Bennington" src="Bennington.png" onClick="alert('Bennington County')">
-                <img class="county Caledonia" src="Caledonia.png" onClick="alert('Caledonia County')">
-                <img class="county Chittenden" src="Chittenden.png" onClick="alert('Chittenden County')">
-                <img class="county Essex" src="Essex.png" onClick="alert('Essex County')">
-                <img class="county Franklin" src="Franklin.png" onClick="alert('Franklin County')">
-                <img class="county Grand-Isle" src="Grand Isle.png" onClick="alert('Grand Isle County')">
-                <img class="county Lamoille" src="Lamoille.png" onClick="alert('Lamoille County')">
-                <img class="county Orange" src="Orange.png" onClick="alert('Orange County')">
-                <img class="county Orleans" src="Orleans.png" onClick="alert('Orleans County')">
-                <img class="county Rutland" src="Rutland.png" onClick="alert('Rutland County')">
-                <img class="county Washington" src="Washington.png" onClick="alert('Washington County')">
-                <img class="county Windham" src="Windham.png" onClick="alert('Windham County')">
-                <img class="county Windsor" src="Windsor.png" onClick="alert('Windsor County')">
-                <img class="county Vermont" src="vermont-county-map.png">
+<div class="info">
+    <div id="county">County</div>
+    <div id="lat">Latitude</div>
+    <div id="long">Longitude</div>
+    <div id="score">Score</div>
+</div>
 
+<div id='endBanner'>
+    <h2>
+        How well do you know Vermont? See if you can guess in which county you land in as few moves as possible.
+    </h2>
+    
+</div>
+
+<div class="modal" id="highScoresModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">High Scores</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <ul  id="highScoresList">
+
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mapid">
+    <div id="nav-column" class="col-sm-2">
+        <div id="countyGuide">
+            <img class="county Addison" src="Addison.png" onClick="alert('Addison County')">
+            <img class="county Bennington" src="Bennington.png" onClick="alert('Bennington County')">
+            <img class="county Caledonia" src="Caledonia.png" onClick="alert('Caledonia County')">
+            <img class="county Chittenden" src="Chittenden.png" onClick="alert('Chittenden County')">
+            <img class="county Essex" src="Essex.png" onClick="alert('Essex County')">
+            <img class="county Franklin" src="Franklin.png" onClick="alert('Franklin County')">
+            <img class="county Grand-Isle" src="Grand Isle.png" onClick="alert('Grand Isle County')">
+            <img class="county Lamoille" src="Lamoille.png" onClick="alert('Lamoille County')">
+            <img class="county Orange" src="Orange.png" onClick="alert('Orange County')">
+            <img class="county Orleans" src="Orleans.png" onClick="alert('Orleans County')">
+            <img class="county Rutland" src="Rutland.png" onClick="alert('Rutland County')">
+            <img class="county Washington" src="Washington.png" onClick="alert('Washington County')">
+            <img class="county Windham" src="Windham.png" onClick="alert('Windham County')">
+            <img class="county Windsor" src="Windsor.png" onClick="alert('Windsor County')">
+            <img class="county Vermont" src="vermont-county-map.png">
             
         </div>
-        <div class="col-sm-9"></div>
-        <div id="button-column" class="col-sm-1">
-            <button id="start" type="button" class="btn btn-success">Start Game</button>
-            <button id="guess" disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#guessModal">Guess Spot</button>
-            <button id="quit" disabled type="button" class="btn btn-info">Give Up!</button>
-
-            <nav id="panButtons">
-                    <ul>
-                        <li id='navUp'>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-chevron-up"></span>
-                            </a>
-                        </li>
-                        <li id='navRight'>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </li>
-                        <li id='navLeft'>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                        </li>
-                        <li id='navDown'>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                        </li>
-                        <li id='navHome'>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                            </a>
-                        </li>
-                    </ul>
-    
-                </nav>
-        </div>
-        <div class="modal fade" id="guessModal" tabindex="-1" role="dialog" aria-labelledby="guessModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class='row'>
-                            <h5 class="modal-title col-sm-11" id="guessModalLabel">Guess a County</h5>
-                            <button type="button" class="close col-sm-1" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+        
+    </div>
+    <div class="col-sm-9"></div>
+    <div id="button-column" class="col-sm-1">
+        <button id="start" type="button" class="btn btn-success">Start Game</button>
+        <button id="guess" disabled type="button" class="btn btn-primary" data-toggle="modal" data-target="#guessModal">Guess Spot</button>
+        <button id="quit" disabled type="button" class="btn btn-info">Give Up!</button>
+        
+        <nav id="panButtons">
+            <ul>
+                <li id='navUp'>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+                </li>
+                <li id='navRight'>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </li>
+                <li id='navLeft'>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </li>
+                <li id='navDown'>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                </li>
+                <li id='navHome'>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </a>
+                </li>
+            </ul>
+            
+        </nav>
+    </div>
+    <div class="modal fade" id="guessModal" tabindex="-1" role="dialog" aria-labelledby="guessModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class='row'>
+                        <h5 class="modal-title col-sm-11" id="guessModalLabel">Guess a County</h5>
+                        <button type="button" class="close col-sm-1" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
-                            <h5>
-                                Guess carefully! You will lose if you guess wrong!
-                            </h5>
-                            <div id="countyPicker">
-                                    <img class="county Addison" src="Addison.png" onClick="processUserGuess('Addison County')">
-                                    <img class="county Bennington" src="Bennington.png" onClick="processUserGuess('Bennington County')">
-                                    <img class="county Caledonia" src="Caledonia.png" onClick="processUserGuess('Caledonia County')">
-                                    <img class="county Chittenden" src="Chittenden.png" onClick="processUserGuess('Chittenden County')">
-                                    <img class="county Essex" src="Essex.png" onClick="processUserGuess('Essex County')">
-                                    <img class="county Franklin" src="Franklin.png" onClick="processUserGuess('Franklin County')">
-                                    <img class="county Grand-Isle" src="Grand Isle.png" onClick="processUserGuess('Grand Isle County')">
-                                    <img class="county Lamoille" src="Lamoille.png" onClick="processUserGuess('Lamoille County')">
-                                    <img class="county Orange" src="Orange.png" onClick="processUserGuess('Orange County')">
-                                    <img class="county Orleans" src="Orleans.png" onClick="processUserGuess('Orleans County')">
-                                    <img class="county Rutland" src="Rutland.png" onClick="processUserGuess('Rutland County')">
-                                    <img class="county Washington" src="Washington.png" onClick="processUserGuess('Washington County')">
-                                    <img class="county Windham" src="Windham.png" onClick="processUserGuess('Windham County')">
-                                    <img class="county Windsor" src="Windsor.png" onClick="processUserGuess('Windsor County')">
-                                    <img class="county Vermont" src="vermont-county-map.png">
-                    
-                                </div>
-                        <!-- <form>
-                            <select id='countySelector' class='form-control'>
-                                <option selected>Choose a County</option>
-                                <option value='Addison County'>Addison County</option>
-                                <option value='Bennington County'>Bennington County</option>
-                                <option value='Caledonia County'>Caledonia County</option>
-                                <option value='Chittenden County'>Chittenden County</option>
-                                <option value='Essex County'>Essex County</option>
-                                <option value='Franklin County'>Franklin County</option>
-                                <option value='Grand Isle County'>Grand Isle County</option>
-                                <option value='Lamoille County'>Lamoille County</option>
-                                <option value='Orange County'>Orange County</option>
-                                <option value='Orleans County'>Orleans County</option>
-                                <option value='Rutland County'>Rutland County</option>
-                                <option value='Washington County'>Washington County</option>
-                                <option value='Windham County'>Windham County</option>
-                                <option value='Windsor County'>Windsor County</option>
-                            </select>
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        Guess carefully! You will lose if you guess wrong!
+                    </h5>
+                    <div id="countyPicker">
+                        <img class="county Addison" src="Addison.png" onClick="processUserGuess('Addison County')">
+                        <img class="county Bennington" src="Bennington.png" onClick="processUserGuess('Bennington County')">
+                        <img class="county Caledonia" src="Caledonia.png" onClick="processUserGuess('Caledonia County')">
+                        <img class="county Chittenden" src="Chittenden.png" onClick="processUserGuess('Chittenden County')">
+                        <img class="county Essex" src="Essex.png" onClick="processUserGuess('Essex County')">
+                        <img class="county Franklin" src="Franklin.png" onClick="processUserGuess('Franklin County')">
+                        <img class="county Grand-Isle" src="Grand Isle.png" onClick="processUserGuess('Grand Isle County')">
+                        <img class="county Lamoille" src="Lamoille.png" onClick="processUserGuess('Lamoille County')">
+                        <img class="county Orange" src="Orange.png" onClick="processUserGuess('Orange County')">
+                        <img class="county Orleans" src="Orleans.png" onClick="processUserGuess('Orleans County')">
+                        <img class="county Rutland" src="Rutland.png" onClick="processUserGuess('Rutland County')">
+                        <img class="county Washington" src="Washington.png" onClick="processUserGuess('Washington County')">
+                        <img class="county Windham" src="Windham.png" onClick="processUserGuess('Windham County')">
+                        <img class="county Windsor" src="Windsor.png" onClick="processUserGuess('Windsor County')">
+                        <img class="county Vermont" src="vermont-county-map.png">
+                        
+                    </div>
+                    <!-- <form>
+                        <select id='countySelector' class='form-control'>
+                            <option selected>Choose a County</option>
+                            <option value='Addison County'>Addison County</option>
+                            <option value='Bennington County'>Bennington County</option>
+                            <option value='Caledonia County'>Caledonia County</option>
+                            <option value='Chittenden County'>Chittenden County</option>
+                            <option value='Essex County'>Essex County</option>
+                            <option value='Franklin County'>Franklin County</option>
+                            <option value='Grand Isle County'>Grand Isle County</option>
+                            <option value='Lamoille County'>Lamoille County</option>
+                            <option value='Orange County'>Orange County</option>
+                            <option value='Orleans County'>Orleans County</option>
+                            <option value='Rutland County'>Rutland County</option>
+                            <option value='Washington County'>Washington County</option>
+                            <option value='Windham County'>Windham County</option>
+                            <option value='Windsor County'>Windsor County</option>
+                        </select>
                     </form> -->
                     <h5 class='hiddenError'>
-                            Please guess a county.
+                        Please guess a county.
                     </h5>
                 </div>
                 <div class="modal-footer">
@@ -198,30 +219,30 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         let randomPointMarker
         var mymap = L.map('mapid', { zoomControl: false }).setView([43.839, -72.625], 8);
-
+        
         mymap.dragging.disable();
         mymap.touchZoom.disable();
         mymap.doubleClickZoom.disable();
         mymap.scrollWheelZoom.disable();
         mymap.boxZoom.disable();
         mymap.keyboard.disable();
-
+        
         var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
         Esri_WorldImagery.addTo(mymap)
-
+        
         let vermontBorder = L.geoJSON(border_data);
         vermontBorder.addTo(mymap)
-
+        
         vermontBorder.setStyle({ color: '#22e614' });
-
-
-
+        
+        
+        
         function selectRandomPoint() {
             let boundingBox = {
                 maxLon: -73.3654, minLon: -71.5489, maxLat: 45.0065, minLat: 42.7395
@@ -234,7 +255,7 @@
             console.log(randomLat)
             let randomLon = Math.random() * lonMultiplier + boundingBox.minLon;
             console.log(randomLon)
-
+            
             let layer = L.geoJson(border_data);
             let results = leafletPip.pointInLayer([randomLon, randomLat], layer);
             if (results.length > 0) {
@@ -254,40 +275,40 @@
                 selectRandomPoint();
             }
             console.log(results)
-    }
-    function getCountyData(randomLat, randomLon) {
-        fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + randomLat + '&lon=' + randomLon)
-        .then(function (result) {
-            return result.json()
-        })
-        .then(function(randomJson) {   
-            county = randomJson.address.county
-        })
-    }
-    
-    function enterHomeScreen() {
-        enableStartButton();
-        disableGuessButton();
-        disableQuitButton();
-        disableNavigation();
-        hideLatLon();
-        resetScore();
-    }
-    
-    function enterPlaying() {
-        disableStartButton();
-        enableGuessButton();
-        enableQuitButton();
-        enableNavigation();
-        hideLatLon();
-        resetScore();
-        selectRandomPoint();
-        hideBanner();
-    }
-    
-   
-    
-
+        }
+        function getCountyData(randomLat, randomLon) {
+            fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + randomLat + '&lon=' + randomLon)
+            .then(function (result) {
+                return result.json()
+            })
+            .then(function(randomJson) {   
+                county = randomJson.address.county
+            })
+        }
+        
+        function enterHomeScreen() {
+            enableStartButton();
+            disableGuessButton();
+            disableQuitButton();
+            disableNavigation();
+            hideLatLon();
+            resetScore();
+        }
+        
+        function enterPlaying() {
+            disableStartButton();
+            enableGuessButton();
+            enableQuitButton();
+            enableNavigation();
+            hideLatLon();
+            resetScore();
+            selectRandomPoint();
+            hideBanner();
+        }
+        
+        
+        
+        
         function enterEndScreen() {
             enableStartButton();
             disableGuessButton();
@@ -297,7 +318,7 @@
             resetMap();
             //store high score function here
         }
-
+        
         $('#start').click(enterPlaying);
         $('#confirmGuess').click(processUserGuess)
         $('#quit').click(giveUp);
@@ -306,8 +327,8 @@
         $('#navRight').click(panRight)
         $('#navDown').click(panDown)
         $('#navHome').click(navHome)
-   
-
+        
+        
         function disableStartButton() {
             document.getElementById('start').disabled = true
         }
@@ -412,14 +433,14 @@
         function addScore() {
             let name = $('#name').val()
             if (localStorage.getItem('highScores')) {
-                let highScoreList = JSON.parse(localStorage.getItem('highScores'))
-                highScoreList.push({"name": name, "score": score})
-                localStorage.setItem('highScores', JSON.stringify(highScoreList))
+                let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
+                highScoreArray.push({"name": name, "score": score})
+                localStorage.setItem('highScores', JSON.stringify(highScoreArray))
             } else {
                 localStorage.setItem('highScores', '[{"name": "'+name+'", "score": '+score+'}]')
-            
+                
+            }
         }
-    }
         function processIncorrect() {
             $('#guessModal').modal('hide')
             $('#endBanner').css('display', 'flex').css('background', 'red')
@@ -427,19 +448,34 @@
             $('#score').text('Score: 0')
             enterEndScreen()
         }
-
+        
         function hideBanner() {
             $('#endBanner').css('display', 'none')
         }
+        
+        function displayHighScores() {
+            let highScoresList = document.getElementById('highScoresList')
+            function compareNumbers(a, b) {
+                return b.score - a.score;
+            }
+            let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
+            let sortedScores = highScoreArray.sort(compareNumbers)
+            for (entry of sortedScores) {
 
 
+                $('#highScoresList').append("<li>" +entry.name+ ":  "  + entry.score.toString() + "</li>")            }
 
+
+        }
+        
+        
+        
         enterHomeScreen()
     </script>
-
-
-
-
+    
+    
+    
+    
 </body>
 
 
