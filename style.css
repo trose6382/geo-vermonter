@@ -250,9 +250,11 @@ a:active, a:focus, a:visited {
 }
 #countyGuide {
     position: relative;
-    margin-left: -165px
 }
-
+#countyPicker{
+    position: relative;
+    margin-left: -165px;
+}
 .county {
     position: absolute;
     top: 10px;
@@ -390,5 +392,15 @@ z-index: 1001;
     #endBanner{
         font-size:20px;
         text-align: center;
+    }
+    #nav-column{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #panButtons{
+        align-self: center;
+        left: 0px;
     }
 }

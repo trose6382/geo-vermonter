@@ -150,7 +150,7 @@
                             <h5>
                                 Guess carefully! You will lose if you guess wrong!
                             </h5>
-                            <div id="countyGuide">
+                            <div id="countyPicker">
                                     <img class="county Addison" src="Addison.png" onClick="processUserGuess('Addison County')">
                                     <img class="county Bennington" src="Bennington.png" onClick="processUserGuess('Bennington County')">
                                     <img class="county Caledonia" src="Caledonia.png" onClick="processUserGuess('Caledonia County')">
@@ -285,22 +285,8 @@
         hideBanner();
     }
     
-    function resumePlaying() {
-        disableStartButton();
-        enableGuessButton();
-        enableQuitButton();
-        enableNavigation();
-        hideLatLon();
-    }
+   
     
-    // function enterGuessInput() {
-        //     disableStartButton();
-        //     disableQuitButton();
-        //     disableNavigation();
-        //     processUserGuess();
-        //     hideLatLon();
-
-        // }
 
         function enterEndScreen() {
             enableStartButton();
@@ -314,14 +300,13 @@
 
         $('#start').click(enterPlaying);
         $('#confirmGuess').click(processUserGuess)
-        // $('#guess').click(enterGuessInput);
         $('#quit').click(giveUp);
         $('#navUp').click(panUp)
         $('#navLeft').click(panLeft)
         $('#navRight').click(panRight)
         $('#navDown').click(panDown)
         $('#navHome').click(navHome)
-        $('#cancelGuess').click(resumePlaying)
+   
 
         function disableStartButton() {
             document.getElementById('start').disabled = true
@@ -412,15 +397,31 @@
                 processIncorrect()
             }
         }
-
+        let winMessage = 'You Win! Enter your name to save your score to the High Scores <input class="form-control" id="name" type="text" placeholder="Your Name"><button class="btn btn-primary" id="submitScore">Submit</button>'
         function giveUp() {
             processIncorrect()
         }
         function processCorrect() {
             $('#guessModal').modal('hide')
             $('#endBanner').css('display', 'flex').css('background', 'green')
-            $('#endBanner > h2').text('You Win! Try again?')
+            $('#endBanner > h2').html(winMessage)
+            $('#submitScore').click(addScore)
             enterEndScreen()
+        }
+        
+        function addScore() {
+            let name = $('#name').val()
+            // if (localStorage.getItem('highScores')) {
+            //     localStorage.getItem('highScores')
+
+
+
+            // } else {
+                console.log(name);
+                console.log($('#name').val());
+                console.log('addScore fired')
+                localStorage.setItem('highScores', '['+name+', '+score+']')
+            
         }
         function processIncorrect() {
             $('#guessModal').modal('hide')
