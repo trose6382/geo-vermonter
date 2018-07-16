@@ -411,18 +411,15 @@
         
         function addScore() {
             let name = $('#name').val()
-            // if (localStorage.getItem('highScores')) {
-            //     localStorage.getItem('highScores')
-
-
-
-            // } else {
-                console.log(name);
-                console.log($('#name').val());
-                console.log('addScore fired')
-                localStorage.setItem('highScores', '['+name+', '+score+']')
+            if (localStorage.getItem('highScores')) {
+                let highScoreList = JSON.parse(localStorage.getItem('highScores'))
+                highScoreList.push({"name": name, "score": score})
+                localStorage.setItem('highScores', JSON.stringify(highScoreList))
+            } else {
+                localStorage.setItem('highScores', '[{"name": "'+name+'", "score": '+score+'}]')
             
         }
+    }
         function processIncorrect() {
             $('#guessModal').modal('hide')
             $('#endBanner').css('display', 'flex').css('background', 'red')
