@@ -14,6 +14,25 @@
     font-family: 'Didact Gothic', sans-serif;
 
 }
+.disappearingRow{
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+}
+#highScoresList {
+    padding-left: inherit;
+    font-size: 30px;
+    font-family: 'Didact Gothic', sans-serif;
+    overflow: scroll;
+}
+
+.list-group {
+    list-style: decimal inside;
+}
+
+.list-group-item {
+    display: list-item;
+}
 
 .info {
     display: flex;
@@ -374,8 +393,14 @@ z-index: 1001;
     align-items: center;
     padding: 10px
 }
+#nameInput{
+    width: 50%;
+}
 
-@media (max-width: 450px){
+@media (max-width: 600px){
+    #countyGuide{
+        display: none;
+    }
     #button-column{
         display:flex;
         flex-direction:column;

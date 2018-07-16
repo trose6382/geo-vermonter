@@ -48,7 +48,7 @@
                     </a>
                 </li>
                 <li>
-                    <button type="button" class="align-baseline" data-toggle="modal" data-target="#highScoresModal">High Scores</button>
+                    <a href="#" id="highScoresButton">High Scores</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -79,16 +79,18 @@
 <div class="modal" id="highScoresModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">High Scores</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header bg-success">
+                <div class='row'>
+                <h1 class="modal-title col-sm-11">High Scores</h1>
+                <button type="button" class="close col-sm-1" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                </div>
             </div>
-            <div class="modal-body">
-                <ul  id="highScoresList">
-
-                </ul>
+            <div class="modal-body row">
+                <ol  id="highScoresList" class="list-group col-sm-12">
+                    
+                </ol>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -264,7 +266,7 @@
                 }
                 randomPointMarker = L.marker([randomLat, randomLon]);
                 randomPointMarker.addTo(mymap)
-                mymap.setView([randomLat, randomLon], 18);
+                mymap.setView([randomLat, randomLon], 17);
                 currentLat = randomLat;
                 currentLon = randomLon;
                 startingLat = randomLat;
@@ -327,7 +329,7 @@
         $('#navRight').click(panRight)
         $('#navDown').click(panDown)
         $('#navHome').click(navHome)
-        
+        $('#highScoresButton').click(displayHighScores)
         
         function disableStartButton() {
             document.getElementById('start').disabled = true
@@ -378,28 +380,28 @@
         }
         function panUp() {
             currentLat = currentLat + 0.0015;
-            mymap.setView([currentLat, currentLon], 18);
+            mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function panDown() {
             currentLat = currentLat - 0.0015;
-            mymap.setView([currentLat, currentLon], 18);
+            mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function panLeft() {
             currentLon = currentLon - 0.0020;
-            mymap.setView([currentLat, currentLon], 18);
+            mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function panRight() {
             currentLon = currentLon + 0.0020;
-            mymap.setView([currentLat, currentLon], 18);
+            mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function navHome() {
             currentLat = startingLat;
             currentLon = startingLon;
-            mymap.setView([currentLat, currentLon], 18)
+            mymap.setView([currentLat, currentLon], 17)
             scoreDown()
         }
         function resetScore() {
@@ -418,7 +420,7 @@
                 processIncorrect()
             }
         }
-        let winMessage = 'You Win! Enter your name to save your score to the High Scores <input class="form-control" id="name" type="text" placeholder="Your Name"><button class="btn btn-primary" id="submitScore">Submit</button>'
+        let winMessage = 'You Win! Enter your name to save your score to the High Scores <br><div class="disappearingRow row"><input class="form-control col-sm-10" id="nameInput" type="text" placeholder="Your Name"><button class="col-sm-2 btn btn-primary" id="submitScore">Submit</button></div>'
         function giveUp() {
             processIncorrect()
         }
@@ -431,15 +433,17 @@
         }
         
         function addScore() {
-            let name = $('#name').val()
+            let name = $('#nameInput').val()
             if (localStorage.getItem('highScores')) {
                 let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
                 highScoreArray.push({"name": name, "score": score})
                 localStorage.setItem('highScores', JSON.stringify(highScoreArray))
             } else {
-                localStorage.setItem('highScores', '[{"name": "'+name+'", "score": '+score+'}]')
+                localStorage.setItem('highScores', '[{"name": ' + name + ', "score": '+score+'}]')
                 
             }
+            $('#endBanner > h2').html("You Win! High score saved! Play again?")
+            displayHighScores()
         }
         function processIncorrect() {
             $('#guessModal').modal('hide')
@@ -454,18 +458,19 @@
         }
         
         function displayHighScores() {
-            let highScoresList = document.getElementById('highScoresList')
+            $('#highScoresList').html('')
             function compareNumbers(a, b) {
                 return b.score - a.score;
             }
             let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
             let sortedScores = highScoreArray.sort(compareNumbers)
             for (entry of sortedScores) {
-
-
-                $('#highScoresList').append("<li>" +entry.name+ ":  "  + entry.score.toString() + "</li>")            }
-
-
+                
+                
+                $('#highScoresList').append("<li class='list-group-item'>" +entry.name+ ":  "  + entry.score.toString() + "</li>")      
+            }
+            
+            $('#highScoresModal').modal('show')
         }
         
         
