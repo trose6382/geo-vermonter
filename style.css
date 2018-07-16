@@ -67,8 +67,6 @@
     position: relative;
 }
 
-
-
 #nav-column {
     height: 580px;
     /* display: flex;
@@ -244,9 +242,15 @@ a:active, a:focus, a:visited {
 #start {
     z-index: 1000;
 }
-
+.modal-body{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 #countyGuide {
     position: relative;
+    margin-left: -165px
 }
 
 .county {
