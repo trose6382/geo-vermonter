@@ -243,50 +243,55 @@
         
         vermontBorder.setStyle({ color: '#22e614' });
         
-        
-        
-        function selectRandomPoint() {
-            let boundingBox = {
+        function makeNewRandomPointInVermont() {
+            let VermontBoundingBox = {
                 maxLon: -73.3654, minLon: -71.5489, maxLat: 45.0065, minLat: 42.7395
             };
-            let latMultiplier = boundingBox.maxLat - boundingBox.minLat;
-            console.log(latMultiplier)
-            let lonMultiplier = boundingBox.maxLon - boundingBox.minLon;
-            console.log(lonMultiplier)
-            let randomLat = Math.random() * latMultiplier + boundingBox.minLat;
-            console.log(randomLat)
-            let randomLon = Math.random() * lonMultiplier + boundingBox.minLon;
-            console.log(randomLon)
-            
+            let latMultiplier = VermontBoundingBox.maxLat - VermontBoundingBox.minLat;
+            let lonMultiplier = VermontBoundingBox.maxLon - VermontBoundingBox.minLon;
+            let randomLat = Math.random() * latMultiplier + VermontBoundingBox.minLat;
+            let randomLon = Math.random() * lonMultiplier + VermontBoundingBox.minLon;
             let layer = L.geoJson(border_data);
             let results = leafletPip.pointInLayer([randomLon, randomLat], layer);
             if (results.length > 0) {
+                return new PointInVermont(randomLat, randomLon)
+            } else {
+                console.log('not in vermont')
+                return makeNewRandomPointInVermont()
+            }
+        }
+
+        class PointInVermont {
+            constructor(lat, lon) {
+                this.latitude = lat
+                this.longitude = lon
+                let thisPlaceholderVariableBecauseFetchesSuck = this
+                fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + this.latitude + '&lon=' + this.longitude)
+                .then(function (result) {
+                return result.json()
+                })
+                .then(function(randomJson) {  
+                console.log(randomJson.address.county) 
+                thisPlaceholderVariableBecauseFetchesSuck.county = randomJson.address.county
+                })
+            }
+        }
+        
+        function selectStartingPoint() {
+                startingPoint = makeNewRandomPointInVermont()
+                console.log(startingPoint.latitude)
                 if (randomPointMarker !== undefined) {
                     mymap.removeLayer(randomPointMarker)
                 }
-                randomPointMarker = L.marker([randomLat, randomLon]);
+                randomPointMarker = L.marker([startingPoint.latitude, startingPoint.longitude]);
                 randomPointMarker.addTo(mymap)
-                mymap.setView([randomLat, randomLon], 17);
-                currentLat = randomLat;
-                currentLon = randomLon;
-                startingLat = randomLat;
-                startingLon = randomLon;
-                getCountyData(randomLat, randomLon)
+                mymap.setView([startingPoint.latitude, startingPoint.longitude], 17);
+                currentLat = startingPoint.latitude;
+                currentLon = startingPoint.longitude;
+                console.log(startingPoint)
             }
-            else {
-                selectRandomPoint();
-            }
-            console.log(results)
-        }
-        function getCountyData(randomLat, randomLon) {
-            fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + randomLat + '&lon=' + randomLon)
-            .then(function (result) {
-                return result.json()
-            })
-            .then(function(randomJson) {   
-                county = randomJson.address.county
-            })
-        }
+        
+
         
         function enterHomeScreen() {
             enableStartButton();
@@ -304,13 +309,10 @@
             enableNavigation();
             hideLatLon();
             resetScore();
-            selectRandomPoint();
+            selectStartingPoint();
             hideBanner();
         }
-        
-        
-        
-        
+            
         function enterEndScreen() {
             enableStartButton();
             disableGuessButton();
@@ -318,7 +320,6 @@
             disableNavigation();
             displayLatLon();;
             resetMap();
-            //store high score function here
         }
         
         $('#start').click(enterPlaying);
@@ -366,9 +367,9 @@
             $('#panButtons').css('background-color', '#b9c6ef')
         }
         function displayLatLon() {
-            $('#lat').text('Latitude: ' + startingLat.toPrecision(6).toString())
-            $('#long').text('Longitude: ' + startingLon.toPrecision(6).toString())
-            $('#county').text('County: ' + county.split(' ')[0].toString())
+            $('#lat').text('Latitude: ' + startingPoint.latitude.toPrecision(6).toString())
+            $('#long').text('Longitude: ' + startingPoint.longitude.toPrecision(6).toString())
+            $('#county').text('County: ' + startingPoint.county.split(' ')[0].toString())
         }
         function hideLatLon() {
             $('#lat').text('Latitude: ???')
@@ -379,28 +380,28 @@
             mymap.setView([43.839, -72.625], 8)
         }
         function panUp() {
-            currentLat = currentLat + 0.0015;
+            currentLat = currentLat + 0.00225;
             mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function panDown() {
-            currentLat = currentLat - 0.0015;
+            currentLat = currentLat - 0.00225;
             mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function panLeft() {
-            currentLon = currentLon - 0.0020;
+            currentLon = currentLon - 0.00275;
             mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function panRight() {
-            currentLon = currentLon + 0.0020;
+            currentLon = currentLon + 0.00275;
             mymap.setView([currentLat, currentLon], 17);
             scoreDown()
         }
         function navHome() {
-            currentLat = startingLat;
-            currentLon = startingLon;
+            currentLat = startingPoint.latitude;
+            currentLon = startingPoint.longitude;
             mymap.setView([currentLat, currentLon], 17)
             scoreDown()
         }
@@ -414,13 +415,14 @@
         }
         function processUserGuess(guessCounty) {
             console.log(guessCounty)
-            if (guessCounty == county){
+            if (guessCounty == startingPoint.county){
                 processCorrect()
             } else {
                 processIncorrect()
             }
         }
         let winMessage = 'You Win! Enter your name to save your score to the High Scores <br><div class="disappearingRow row"><input class="form-control col-sm-10" id="nameInput" type="text" placeholder="Your Name"><button class="col-sm-2 btn btn-primary" id="submitScore">Submit</button></div>'
+        
         function giveUp() {
             processIncorrect()
         }
