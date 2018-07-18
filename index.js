@@ -1,7 +1,7 @@
 var fs = require('fs');
 var http = require('http');
 var mime = require('mime-types');
-
+const $path = require('path');
 
 
 var port = process.env.PORT || 5000;
@@ -9,8 +9,15 @@ http.createServer(function (request, response) {
   let contentType = 'text/plain';
   let data;
   let path = request.url;
-
-  if (path === '/') {
+  let file = '.' + decodeURIComponent(request.url);
+  file = $path.resolve(file);
+  let publicDir = $path.resolve('.');
+  if (!file.startsWith(publicDir)) {
+    data = "Error: you are not permitted to access that file.";
+    response.statusCode = 403; // Forbidden
+    console.log("User requested file '" + request.url + "' (not permitted)");
+    file = null;
+  } else if (path === '/') {
     file = 'index.html';
   }
 
