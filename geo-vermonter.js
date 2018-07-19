@@ -205,6 +205,7 @@ function processCorrect() {
     $('#endBanner').css('display', 'flex').css('background', 'green')
     $('#endBanner > h2').html(winMessage)
     $('#submitScore').click(addScore)
+    listenForEnter()
     enterEndScreen()
 }
 function isProfane(name) {
@@ -221,6 +222,7 @@ function addScore() {
     if(isProfane(name)) {
         $('#endBanner > h2').html('Please enter a different name. >:( <br><div class="disappearingRow row"><input class="form-control col-sm-10" id="nameInput" type="text" placeholder="Your Name"><button class="col-sm-2 btn btn-primary" id="submitScore">Submit</button></div>')
         $('#submitScore').click(addScore);
+        listenForEnter()
     } else {
     if (localStorage.getItem('highScores')) {
         let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
@@ -259,5 +261,13 @@ function displayHighScores() {
     
     $('#highScoresModal').modal('show')
 }
-
+function listenForEnter() {
+    let nameInput = document.getElementById('nameInput')
+    nameInput.addEventListener('keypress', function(event) {
+        let key = event.keyCode || event.which;
+        if (key === 13) {
+            addScore();
+        }
+    })
+}
 enterHomeScreen()
